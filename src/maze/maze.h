@@ -1,0 +1,22 @@
+#ifndef MAZE_H
+#define MAZE_H
+
+//define colloms and rows of the map
+
+#define COLS 7
+#define ROWS 7
+#define CELL_SIZE 50
+#define WALL_SIZE 10
+
+
+typedef struct
+{
+    int top;
+    int right;
+    int bottom;
+    int left;
+} Cell;
+
+void drawMaze(void);
+void drawCell(Cell cell, int x, int y);
+#endif
