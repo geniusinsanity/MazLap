@@ -1,24 +1,9 @@
 #include "maze.h"
 #include <raylib.h>
 
-static int maze[ROWS][COLS] =
-{
-    {1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 1, 0, 1},
-    {1, 0, 1, 0, 1, 0, 1},
-    {1, 0, 1, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1},
-};
+static Cell grid[ROWS][COLS] ;
 
-Cell cell =
-{
-    1,  // top
-    1,  // right
-    1,  // bottom
-    1   // left
-};
+int posX,posY,i,j;
 
 void drawCell(Cell cell, int x, int y)
 {
@@ -37,23 +22,26 @@ void drawCell(Cell cell, int x, int y)
 
 
 void drawMaze(void){
-    for(int i = 0; i<ROWS ; i++){
+    for(i = 0; i<ROWS ; i++){
 
-        for (int j = 0; j < COLS; j++)
+        for (j = 0; j < COLS; j++)
         {
-            Color color = maze[i][j]==0? BLACK:WHITE;
-            DrawRectangle(j*CELL_SIZE , i*CELL_SIZE, CELL_SIZE , CELL_SIZE ,color );
-DrawRectangleLinesEx(
-                (Rectangle){
-                    j * CELL_SIZE,
-                    i * CELL_SIZE,
-                    CELL_SIZE,
-                    CELL_SIZE
-                },
-                10,
-                LIGHTGRAY
-            );
-            }
+            posX = j*(CELL_SIZE - WALL_SIZE);
+            posY = i *(CELL_SIZE -WALL_SIZE);
+            drawCell(grid[i][j],posX,posY);
+        }
+    }
+}
+
+void mazInit(void){
+
+    for (int r = 0; r < ROWS; r++)
+    {
+        for (int c = 0; c < COLS; c++)
+        {
+            grid[r][c] = (Cell){1 ,1 ,1 ,1};
+        }
         
     }
+    
 }

@@ -8,9 +8,6 @@
 
 int main(void)
 {
-Cell test;
-
-test.top = 1;
 
 
     float playerX = 100;
@@ -41,12 +38,17 @@ test.top = 1;
             playerY = 0;
 
         BeginDrawing();
+
+        mazInit();
+        
         ClearBackground(RAYWHITE);
+        
+        drawMaze();
+        
         DrawRectangle((int)playerX, (int)playerY,30,30, BLUE);
+
         EndDrawing();
 
-        drawMaze();
-        drawCell(test,0,0);
     }
     CloseWindow();
 
