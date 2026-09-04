@@ -19,4 +19,5 @@ typedef struct
 
 void drawMaze(void);
 void drawCell(Cell cell, int x, int y);
+void mazInit(void);
 #endif
