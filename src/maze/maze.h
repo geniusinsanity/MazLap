@@ -15,9 +15,11 @@ typedef struct
     int right;
     int bottom;
     int left;
+    int visited;
 } Cell;
 
 void drawMaze(void);
 void drawCell(Cell cell, int x, int y);
 void mazInit(void);
+void generateMaze(int row, int col);
 #endif

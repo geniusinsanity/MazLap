@@ -10,23 +10,25 @@ int main(void)
 {
 
 
-    float playerX = 100;
-    float playerY = 100;
+    float playerX = 10;
+    float playerY = 10;
 
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
     InitWindow(800, 600, "MazLap");
-
+    
+    mazInit(); 
+    generateMaze(0,0);
     while (!WindowShouldClose())
     {
         if (IsKeyPressed(KEY_LEFT))
-            playerX -=30;
+            playerX -=40;
         if (IsKeyPressed(KEY_RIGHT))
-            playerX +=30;
+            playerX +=40;
         if (IsKeyPressed(KEY_UP))
-            playerY -=30;
+            playerY -=40;
         if (IsKeyPressed(KEY_DOWN))
-            playerY +=30;
+            playerY +=40;
 
         if (playerX > (GetScreenWidth() -30))
             playerX = GetScreenWidth() -30;
@@ -38,12 +40,11 @@ int main(void)
             playerY = 0;
 
         BeginDrawing();
-
-        mazInit();
         
         ClearBackground(RAYWHITE);
         
         drawMaze();
+
         
         DrawRectangle((int)playerX, (int)playerY,30,30, BLUE);
 

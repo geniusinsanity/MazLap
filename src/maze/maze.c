@@ -39,9 +39,53 @@ void mazInit(void){
     {
         for (int c = 0; c < COLS; c++)
         {
-            grid[r][c] = (Cell){1 ,1 ,1 ,1};
+            grid[r][c] = (Cell){1 ,1 ,1 ,1, 0};
         }
         
     }
     
+}
+
+void generateMaze(int row ,int col){
+    grid[row][col].visited=1;
+
+    int dirs[4]={0,1,2,3};
+
+    for (int i=0; i<4; i++){
+        int randIdx = GetRandomValue(0,3);
+        int temp = dirs[i];
+        dirs[i]=dirs[randIdx];
+        dirs[randIdx]=temp;
+
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        int nextRow =row;
+        int nextCol=col;
+
+        if (dirs[i]==0) nextRow--;else if (dirs[i]==1) nextCol++;else if (dirs[i]==2) nextRow++;else if (dirs[i]==3) nextCol--;
+    
+    
+    if(nextRow >= 0 && nextRow <ROWS && nextCol >= 0 && nextCol < COLS && !grid[nextRow][nextCol].visited){
+        if (dirs[i]==0) {
+            grid[row][col].top=0;
+            grid[nextRow][nextCol].bottom=0;
+
+        }else if(dirs[i]==1){
+            grid[row][col].right=0;
+            grid[nextRow][nextCol].left=0;
+            
+        }else if(dirs[i]==2){
+            grid[row][col].bottom=0;
+            grid[nextRow][nextCol].top=0;
+
+        }else if(dirs[i]==3){
+            grid[row][col].left=0;
+            grid[nextRow][nextCol].right=0;
+
+        }
+        generateMaze(nextRow,nextCol);
+    }
+}
 }
