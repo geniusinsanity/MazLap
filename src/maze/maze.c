@@ -3,32 +3,38 @@
 
 static Cell grid[ROWS][COLS] ;
 
-int posX,posY,i,j;
-
+// التعديل: رسم الحيطان كخطوط بيضاء رقيقة (Lines) بسُمك 2px بدلاً من مستطيلات 10px
+// هذا التعديل يقضي على مشكل الفراغ (10px gap) ويجعل المتاهة متصلة ومطابقة لفيديوهات الـ Maze Generation
 void drawCell(Cell cell, int x, int y)
 {
+    // التعديل: زيادة سُمك الحيط إلى 4.0f باش يولي باين مليح وواضح في الشاشة
+    float thickness = 4.0f; // سُمك الخط الأبيض للحيطان
+
+    // رسم الحيط العلوي: خط أفقي من (x, y) إلى (x + CELL_SIZE, y)
     if (cell.top)
-        DrawRectangle(x, y, CELL_SIZE, WALL_SIZE, GRAY);
+        DrawLineEx((Vector2){(float)x, (float)y}, (Vector2){(float)(x + CELL_SIZE), (float)y}, thickness, WHITE);
 
+    // رسم الحيط الأيمن: خط عمودي من (x + CELL_SIZE, y) إلى (x + CELL_SIZE, y + CELL_SIZE)
     if (cell.right)
-        DrawRectangle(x + CELL_SIZE - WALL_SIZE, y, WALL_SIZE, CELL_SIZE, GRAY);
+        DrawLineEx((Vector2){(float)(x + CELL_SIZE), (float)y}, (Vector2){(float)(x + CELL_SIZE), (float)(y + CELL_SIZE)}, thickness, WHITE);
 
+    // رسم الحيط السفلي: خط أفقي من (x, y + CELL_SIZE) إلى (x + CELL_SIZE, y + CELL_SIZE)
     if (cell.bottom)
-        DrawRectangle(x, y + CELL_SIZE - WALL_SIZE, CELL_SIZE, WALL_SIZE, GRAY);
+        DrawLineEx((Vector2){(float)x, (float)(y + CELL_SIZE)}, (Vector2){(float)(x + CELL_SIZE), (float)(y + CELL_SIZE)}, thickness, WHITE);
 
+    // رسم الحيط الأيسر: خط عمودي من (x, y) إلى (x, y + CELL_SIZE)
     if (cell.left)
-        DrawRectangle(x, y, WALL_SIZE, CELL_SIZE, GRAY);
+        DrawLineEx((Vector2){(float)x, (float)y}, (Vector2){(float)x, (float)(y + CELL_SIZE)}, thickness, WHITE);
 }
 
-
+// التعديل: حساب إحداثيات كل خلية مباشرة بـ (col * CELL_SIZE) و (row * CELL_SIZE)
+// بدون إنقاص WALL_SIZE لأن الحيطان أصبحت خطوطاً رقيقة ولا تؤثر على أبعاد الشبكة
 void drawMaze(void){
-    for(i = 0; i<ROWS ; i++){
-
-        for (j = 0; j < COLS; j++)
-        {
-            posX = j*(CELL_SIZE - WALL_SIZE);
-            posY = i *(CELL_SIZE -WALL_SIZE);
-            drawCell(grid[i][j],posX,posY);
+    for (int row = 0; row < ROWS; row++) {
+        for (int col = 0; col < COLS; col++) {
+            int posX = col * CELL_SIZE;
+            int posY = row * CELL_SIZE;
+            drawCell(grid[row][col], posX, posY);
         }
     }
 }

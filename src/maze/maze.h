@@ -5,8 +5,9 @@
 
 #define COLS 7
 #define ROWS 7
-#define CELL_SIZE 50
-#define WALL_SIZE 10
+// التعديل: حجم كل خلية في المتاهة
+// تم حذف WALL_SIZE نهائياً لأن الحيطان أصبحت خطوطاً رقيقة لا تأخذ مساحة
+#define CELL_SIZE 40
 
 
 typedef struct
